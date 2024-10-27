@@ -29,7 +29,7 @@ class JobSeekerModel(models.Model):
     user = models.OneToOneField(Custom_User, on_delete=models.CASCADE, related_name='JobSeeker')
 
     def __str__(self) -> str:
-        return f"{self.user.username}--{self.user.first_name}"
+        return f"{self.user.username}"
     
 class RecruiterModel(models.Model):
     user = models.OneToOneField(Custom_User, on_delete=models.CASCADE, related_name='Recruiter')

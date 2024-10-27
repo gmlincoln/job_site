@@ -1,0 +1,42 @@
+{% extends 'common/base.html' %}
+
+
+{% block body %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Featured Jobs</h2>
+    <div class="row">
+
+        <!-- Jobs -->
+
+        {% for job in jobs %}
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/{{job.company_logo}}" class="card-img-top" alt="Job Image" style="max-width: 100%; 
+                height:250px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{job.title}}</h5>
+                    <p class="card-text"><strong>Description: </strong> {{job.description}}</p>
+                    <p class="card-text"><strong>Category: </strong>
+
+                        {% if job.category == 'full_time' %}
+                        Full Time
+                        {% elif job.category == 'part_time' %}
+                        Part Time
+                        {% endif %}
+
+                    </p>
+                    <p class="card-text"><strong>Skills: </strong> {{job.skills}}</p>
+
+                    {% if request.user.user_type == 'job_seeker' %}
+                    <a href="{% url 'applyJob' job.id %}" class="btn btn-outline-primary">Apply Now</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock body %}
