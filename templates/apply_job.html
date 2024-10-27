@@ -1,0 +1,45 @@
+{% extends 'common/base.html' %}
+
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center">Apply for {{job.title}}</h2>
+    <form class="mt-4 p-4 border rounded bg-light" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+
+        <!-- Job Title -->
+        <div class="mb-3">
+            <label for="jobTitle" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="jobTitle" name="jobTitle" value="{{job.title}}" required
+                readonly>
+        </div>
+
+
+        <!-- Cover -->
+        <div class="mb-3">
+            <label for="cover" class="form-label">Cover Letter</label>
+            <textarea class="form-control" id="cover" name="cover" rows="3" required></textarea>
+        </div>
+
+        <!-- Skills -->
+        <div class="mb-3">
+            <label for="skills" class="form-label">Skills</label>
+            <input type="text" class="form-control" id="skills" name="skills" required>
+        </div>
+
+        <!-- Resume  -->
+        <div class="mb-3">
+            <label for="resume" class="form-label">Upload Resume</label>
+            <input type="file" class="form-control" id="resume" name="resume">
+        </div>
+
+        <!-- Apply Button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Apply Now</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

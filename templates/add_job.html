@@ -1,0 +1,56 @@
+{% extends 'common/base.html' %}
+
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center">Job Entry Form</h2>
+    <form class="mt-4 p-4 border rounded bg-light" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Job Title -->
+        <div class="mb-3">
+            <label for="jobTitle" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+        </div>
+
+        <!-- Number of Openings -->
+        <div class="mb-3">
+            <label for="numberOfOpenings" class="form-label">Number of Openings</label>
+            <input type="number" class="form-control" id="numberOfOpenings" name="numberOfOpenings" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select type="text" class="form-control" id="category" name="category" required>
+                <option value="">Select</option>
+                <option value="part_time">Part Time</option>
+                <option value="full_time">Full Time</option>
+            </select>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+
+        <!-- Skills -->
+        <div class="mb-3">
+            <label for="skills" class="form-label">Skills</label>
+            <input type="text" class="form-control" id="skills" name="skills" required>
+        </div>
+
+        <!-- Company Logo -->
+        <div class="mb-3">
+            <label for="companyLogo" class="form-label">Company Logo</label>
+            <input type="file" class="form-control" id="companyLogo" name="companyLogo" accept="image/*">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit Job</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,63 @@
+{% extends 'common/base.html' %}
+
+{% block body %}
+
+
+<div class="container mt-5">
+    <h2 class="text-center">{{request.user.get_full_name}}'s Profile</h2>
+    <div class="card mt-4">
+        <div class="card-body">
+            <!-- Username Section -->
+            <div class="mb-3">
+                <h5 class="card-title">Username</h5>
+                <p class="card-text">{{request.user.username}}</p>
+            </div>
+
+            <!-- First Name Section -->
+            <div class="mb-3">
+                <h5 class="card-title">First Name</h5>
+                <p class="card-text">{{request.user.first_name}}</p>
+            </div>
+
+            <!-- Last Name Section -->
+            <div class="mb-3">
+                <h5 class="card-title">Last Name</h5>
+                <p class="card-text">{{request.user.last_name}}</p>
+            </div>
+
+            <!-- Email Section -->
+            <div class="mb-3">
+                <h5 class="card-title">Email</h5>
+                <p class="card-text">{{request.user.email}}</p>
+            </div>
+
+            <!-- User Type Section -->
+            <div class="mb-3">
+                <h5 class="card-title">User Type</h5>
+                <p class="card-text">{{request.user.user_type|capfirst}}</p>
+            </div>
+
+            <!-- Edit Profile Button -->
+            <div class="text-center mt-4">
+                <a href="" class="btn btn-primary">Edit Profile</a>
+
+                {% if request.user.user_type == 'recruiter' %}
+                <a href="{% url 'createdJob' %}" class="btn btn-success">Created Job</a>
+                <a href="{% url 'addJob' %}" class="btn btn-warning">Add Job</a>
+
+                {% endif %}
+
+                {% if request.user.user_type == 'job_seeker' %}
+                <a href="{% url 'addJob' %}" class="btn btn-warning">Applied Job</a>
+
+                {% endif %}
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

@@ -1,0 +1,81 @@
+{% extends 'common/base.html' %}
+
+
+{% block body %}
+<!-- Header Section -->
+<header class="py-5 text-center bg-success text-white">
+    <div class="container">
+        <h1 class="display-5">Find Your Dream Job</h1>
+        <p class="lead">Search thousands of job opportunities across various industries.</p>
+        <a href="{% url 'skillMatchingPage' %}" class="btn btn-dark text-center">Jobs Based on Your Skill</a>
+
+
+    </div>
+</header>
+
+<!-- Job Search Section -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+            <form class="input-group" action="{% url 'searchJob' %}" method="GET">
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Job Title, Skills" name="query"
+                    aria-label="Job Title">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Jobs Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Featured Jobs</h2>
+    <div class="row">
+
+        <!-- Jobs -->
+
+        {% for job in jobs %}
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/{{job.company_logo}}" class="card-img-top" alt="Job Image" style="max-width: 100%; 
+                height:250px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{job.title}}</h5>
+                    <p class="card-text"><strong>Description: </strong> {{job.description}}</p>
+                    <p class="card-text"><strong>Category: </strong>
+
+                        {% if job.category == 'full_time' %}
+                        Full Time
+                        {% elif job.category == 'part_time' %}
+                        Part Time
+                        {% endif %}
+
+                    </p>
+                    <p class="card-text"><strong>Skills: </strong> {{job.skills}}</p>
+
+                    {% if request.user.user_type == 'job_seeker' %}
+                    <a href="{% url 'applyJob' job.id %}" class="btn btn-outline-primary">Apply Now</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-light py-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Job Portal. All rights reserved.</p>
+    </div>
+</footer>
+
+{% endblock body %}

@@ -1,0 +1,60 @@
+{% extends 'common/base.html' %}
+
+
+{% block body %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Job Listings</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover mt-4 align-middle">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Job Title</th>
+                    <th>Total Openings</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Skills</th>
+                    <th>Company Logo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+
+
+                <!-- Jobs -->
+
+                {% for job in jobs %}
+                <tr>
+                    <td>{{job.title}}</td>
+                    <td>{{job.num_of_openings}}</td>
+
+                    {% if job.category == 'full_time' %}
+                    <td>Full Time</td>
+                    {% elif job.category == 'part_time' %}
+                    <td>Part Time</td>
+
+                    {% endif %}
+
+                    <td>{{job.description}}</td>
+                    <td>{{job.skills}}</td>
+                    <td class="text-center">
+                        <img src="/{{job.company_logo}}" alt="Company Logo" class="img-fluid" style="max-width: 50px;">
+                    </td>
+                    <td class="text-center ">
+                        <a href="{% url 'editJob' job.id %}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+                        <a href="{% url 'deleteJob' job.id %}" class="btn btn-sm btn-outline-danger me-2">Delete</a>
+                        <a href="{% url 'viewJob' job.id %}" class="btn btn-sm btn-outline-success">View</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock body %}

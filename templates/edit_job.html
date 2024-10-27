@@ -1,0 +1,83 @@
+{% extends 'common/base.html' %}
+
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center">Edit Job</h2>
+    <form class="mt-4 p-4 border rounded bg-light" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Job Id -->
+
+        <input type="text" class="form-control d-none" id="jobId" name="jobId" value="{{jobs.id}}" required>
+
+
+        <!-- Job Title -->
+        <div class="mb-3">
+            <label for="jobTitle" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="jobTitle" name="jobTitle" value="{{jobs.title}}" required>
+        </div>
+
+        <!-- Number of Openings -->
+        <div class="mb-3">
+            <label for="numberOfOpenings" class="form-label">Number of Openings</label>
+            <input type="number" class="form-control" id="numberOfOpenings" name="numberOfOpenings"
+                value="{{jobs.num_of_openings}}" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select type="text" class="form-control" id="category" name="category" required>
+                <option value="{{jobs.category}}" selected>
+
+                    {% if jobs.category == 'full_time' %}
+                    Full Time
+                    {% elif jobs.category == 'part_time' %}
+                    Part Time
+                    {% endif %}
+                </option>
+
+                {% if jobs.category == 'full_time' %}
+                <option value="part_time">Part Time</option>
+
+                {% elif jobs.category == 'part_time' %}
+                <option value="full_time">Full Time</option>
+
+                {% endif %}
+            </select>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"
+                required>{{jobs.description}}</textarea>
+        </div>
+
+        <!-- Skills -->
+        <div class="mb-3">
+            <label for="skills" class="form-label">Skills</label>
+            <input type="text" class="form-control" id="skills" name="skills" value="{{jobs.skills}}" required>
+        </div>
+
+        <!-- Company Logo -->
+        <div class="mb-3">
+            <label for="companyLogo" class="form-label">Company Logo</label>
+            <br>
+            {% if jobs.company_logo %}
+            <img src="/{{jobs.company_logo}}" alt="Company Logo" class="img-fluid" style="max-width: 50px;">
+
+            {% endif %}
+
+            <input type="file" class="form-control" id="companyLogo" name="companyLogo" accept="image/*">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Update Job</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}
