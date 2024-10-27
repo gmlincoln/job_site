@@ -39,31 +39,22 @@ def searchJob(req):
     return render(req, 'search.html', context)
 
 
-# @login_required
-# def skillMatchingPage(request):
-
-#     user = request.user
-
-#     mySkill = user.JobSeeker.skills
-
-#     print(mySkill)
-
-#     return render(request, 'skill_match.html')
-
 def skillMatchingPage(request):
-    
-    user=request.user
-    
-    mySkill = user.JobSeeker.skills
-    jobs=JobModel.objects.filter(skills=mySkill)
+    user = request.user
 
-    context={
-        'jobs':jobs
+    if hasattr(user, 'JobSeeker') and user.JobSeeker:
+        mySkill = user.JobSeeker.skills
+        jobs = JobModel.objects.filter(skills=mySkill)
+    
+
+    context = {
+        'jobs': jobs,
+        'mySkill': mySkill
     }
-    
-    print(mySkill)
-    
-    return render(request,"skill_match.html",context)
+
+    print(mySkill)  # Optional debugging print
+
+    return render(request, "skill_match.html", context)
 
 
 @login_required
